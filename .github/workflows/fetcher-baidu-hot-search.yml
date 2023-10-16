@@ -1,42 +1,41 @@
 name: fetcher-baidu-hot-search
 
 on:
-  push:
-    branches: [ "main" ]
   schedule:
-    - cron:  '0 18,4 * * *'
+    - cron: "0 18,4 * * *"
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  build:
-
+  fetch-baidu-hot-search:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Set up Python 3.10
         uses: actions/setup-python@v3
         with:
           python-version: "3.10"
-          
+
       - name: Install dependencies
         working-directory: "./Fetchers/CN/"
         run: |
           python -m pip install --upgrade pip
           pip install requests pandas
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          
+
       - name: Run fetcher
+        working-directory: "./Fetchers/CN/"
         run: |
           python ./fetcher-baidu-hot-search.py
-          
+
       - name: Commit report
         run: |
           git config --global user.name 'Dynesshely'
           git config --global user.email 'catrol@qq.com'
+          git add .
           git commit -am "📄 Docs: Fetched from '百度热搜'."
           git push
