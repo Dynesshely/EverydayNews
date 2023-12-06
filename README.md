@@ -23,3 +23,7 @@ This is a project that fetch all the news from various platforms and organize th
 
 - 百度热搜榜 (北京时间每日 10, 20 点更新)
 - 微博热搜榜 (北京时间每日 10, 20 点更新)
+
+# Catalog
+
+- [CN](./News/CN/)
