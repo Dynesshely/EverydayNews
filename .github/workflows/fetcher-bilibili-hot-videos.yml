@@ -1,0 +1,40 @@
+name: fetcher-bilibili-hot-videos
+
+on:
+  schedule:
+    - cron: "0 18,4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-baidu-hot-search:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        working-directory: "./Fetchers/CN/"
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run fetcher
+        working-directory: "./Fetchers/CN/"
+        run: |
+          python ./fetcher-bilibili-hot-videos.py
+
+      - name: Commit report
+        run: |
+          git config --global user.name 'Dynesshely'
+          git config --global user.email 'catrol@qq.com'
+          git add .
+          git commit -am "📄 Docs: Fetched from 'BiliBili 热门视频'."
+          git push
