@@ -1,8 +1,7 @@
 name: fetcher-weibo-hot-search
 
 on:
-  schedule:
-    - cron: "0 18,4 * * *"
+  workflow_call:
   workflow_dispatch:
 
 permissions:
@@ -13,14 +12,12 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: browser-actions/setup-chrome@v1
-
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v3
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.10"
+          cache: "pip"
 
       - name: Install dependencies
         working-directory: "./Fetchers/CN/"
@@ -33,6 +30,8 @@ jobs:
             pip install -r requirements.txt
           }
 
+      - uses: browser-actions/setup-chrome@v1
+
       - name: Run fetcher
         working-directory: "./Fetchers/CN/"
         run: |
@@ -43,5 +42,8 @@ jobs:
           git config --global user.name 'Dynesshely'
           git config --global user.email 'catrol@qq.com'
           git add .
-          git commit -am "📄 Docs: Fetched from '微博热搜'."
-          git push
+          git stash
+          git checkout -b fetch=weibo-hot-search
+          git stash pop
+          git commit -am "fetched from '微博热搜'"
+          git push -u origin fetch=weibo-hot-search

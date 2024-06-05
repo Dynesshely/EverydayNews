@@ -1,8 +1,7 @@
 name: fetcher-baidu-hot-search
 
 on:
-  schedule:
-    - cron: "0 18,4 * * *"
+  workflow_call:
   workflow_dispatch:
 
 permissions:
@@ -13,12 +12,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Set up Python 3.10
-        uses: actions/setup-python@v3
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.10"
+          cache: "pip"
 
       - name: Install dependencies
         working-directory: "./Fetchers/CN/"
@@ -37,5 +36,8 @@ jobs:
           git config --global user.name 'Dynesshely'
           git config --global user.email 'catrol@qq.com'
           git add .
-          git commit -am "📄 Docs: Fetched from '百度热搜'."
-          git push
+          git stash
+          git checkout -b fetch=baidu-hot-search
+          git stash pop
+          git commit -am "fetched from '百度热搜'"
+          git push -u origin fetch=baidu-hot-search

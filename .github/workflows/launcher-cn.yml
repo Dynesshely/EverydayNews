@@ -1,0 +1,47 @@
+name: launcher-cn
+
+on:
+  schedule:
+    - cron: "0 18,4 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch-baidu-hot-search:
+    uses: ./.github/workflows/fetcher-baidu-hot-search.yml
+
+  fetch-bilibili-hot-videos:
+    uses: ./.github/workflows/fetcher-bilibili-hot-videos.yml
+
+  fetch-weibo-hot-search:
+    uses: ./.github/workflows/fetcher-weibo-hot-search.yml
+
+  merge:
+    runs-on: ubuntu-latest
+    if: ${{ always() }}
+    needs:
+      - fetch-baidu-hot-search
+      - fetch-bilibili-hot-videos
+      - fetch-weibo-hot-search
+    strategy:
+      matrix:
+        branch:
+          - fetch=baidu-hot-search
+          - fetch=bilibili-hot-videos
+          - fetch=weibo-hot-search
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - run: |
+          git config --global user.name 'Dynesshely'
+          git config --global user.email 'catrol@qq.com'
+          git fetch origin --all
+          git merge ${{ matrix.branch }}
+          git push origin main
+          git push origin -d ${{ matrix.branch }}
