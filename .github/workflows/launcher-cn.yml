@@ -25,23 +25,26 @@ jobs:
       - fetch-baidu-hot-search
       - fetch-bilibili-hot-videos
       - fetch-weibo-hot-search
-    strategy:
-      matrix:
-        branch:
-          - fetch=baidu-hot-search
-          - fetch=bilibili-hot-videos
-          - fetch=weibo-hot-search
-      fail-fast: false
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - run: |
+      - shell: pwsh
+        run: |
           git config --global user.name 'Dynesshely'
           git config --global user.email 'catrol@qq.com'
           git checkout main
-          git merge ${{ matrix.branch }}
+
+          $branches = (
+            'fetch=baidu-hot-search',
+            'fetch=bilibili-hot-videos',
+            'fetch=weibo-hot-search'
+          )
+
+          $branches | ForEach-Object {
+            git merge $_ main
+          }
+
           git push origin main
-          git push origin -d ${{ matrix.branch }}
