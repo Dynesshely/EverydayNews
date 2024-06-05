@@ -16,7 +16,7 @@ This is a project that fetch all the news from various platforms and organize th
 
 # Struct
 
-- `News` folder contains all the news that are fetched from various platforms.
+- `News` folder contains all the news that are fetched from various platforms, which was organized by countries or regions.
 - `Fetchers` folder contains all the fetchers that are used to fetch news from various platforms.
 
 # Currently fetch from ?
@@ -24,7 +24,3 @@ This is a project that fetch all the news from various platforms and organize th
 - 百度热搜榜 (`0 18,4 * * *`)
 - 微博热搜榜 (`0 18,4 * * *`)
 - BiliBili 热门视频 (`0 18,4 * * *`)
-
-# Catalog
-
-- [CN](./News/CN/)
