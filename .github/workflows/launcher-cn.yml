@@ -44,7 +44,7 @@ jobs:
           )
 
           $branches | ForEach-Object {
-            git merge $_ main
+            git merge origin/$_ main
           }
 
           git push origin main
