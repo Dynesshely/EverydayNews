@@ -13,6 +13,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -36,7 +38,7 @@ jobs:
           git config --global user.email 'catrol@qq.com'
           git add .
           git stash
-          git checkout -b fetch=baidu-hot-search
+          git checkout fetch=baidu-hot-search
           git stash pop
           git commit -am "fetched from '百度热搜'"
           git push -u origin fetch=baidu-hot-search

@@ -13,6 +13,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -42,7 +44,7 @@ jobs:
           git config --global user.email 'catrol@qq.com'
           git add .
           git stash
-          git checkout -b fetch=weibo-hot-search
+          git checkout fetch=weibo-hot-search
           git stash pop
           git commit -am "fetched from '微博热搜'"
           git push -u origin fetch=weibo-hot-search

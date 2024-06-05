@@ -41,7 +41,7 @@ jobs:
       - run: |
           git config --global user.name 'Dynesshely'
           git config --global user.email 'catrol@qq.com'
-          git fetch origin --all
+          git checkout main
           git merge ${{ matrix.branch }}
           git push origin main
           git push origin -d ${{ matrix.branch }}
