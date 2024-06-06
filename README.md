@@ -21,6 +21,7 @@ This is a project that fetch all the news from various platforms and organize th
 
 # Currently fetch from ?
 
-- 百度热搜榜 (`0 18,4 * * *`)
-- 微博热搜榜 (`0 18,4 * * *`)
-- BiliBili 热门视频 (`0 18,4 * * *`)
+- China (At every 6:00, 12:00, 20:00 for UTC+8 Timezone)
+  - Baidu Hot Search
+  - Weibo Hot Search
+  - BiliBili Hot Video
