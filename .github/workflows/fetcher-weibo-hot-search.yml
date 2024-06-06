@@ -40,8 +40,8 @@ jobs:
 
       - name: Commit report
         run: |
-          git config --global user.name 'Dynesshely'
-          git config --global user.email 'catrol@qq.com'
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add .
           git stash
           git checkout fetch=weibo-hot-search
