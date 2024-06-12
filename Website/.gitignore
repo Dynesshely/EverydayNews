@@ -1,6 +1,3 @@
-# Mac stuff:
-.DS_Store
-
 # Trunk output folder
 dist
 
