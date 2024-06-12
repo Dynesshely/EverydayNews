@@ -50,15 +50,17 @@ impl eframe::App for TemplateApp {
                 //     ui.add_space(16.0);
                 // }
 
-                ui.add(egui::widgets::Button::new("Home"));
+                ui.hyperlink_to("Home", "https://www.baidu.com");
 
-                ui.menu_button("News", |ui| {
-                    ui.menu_button("CN", |ui| {
-                        if ui.button("Content").clicked() {
-                            ui.close_menu();
-                        }
-                    });
-                });
+                // ui.menu_button("News", |ui| {
+                //     ui.menu_button("CN", |ui| {
+                //         if ui.button("Catalog").clicked() {
+                //             self.catalog_opened = !self.catalog_opened;
+
+                //             ui.close_menu();
+                //         }
+                //     });
+                // });
 
                 ui.spacing();
 
@@ -68,6 +70,7 @@ impl eframe::App for TemplateApp {
 
         egui::CentralPanel::default().show(ctx, |ui| {
             // Body
+            
 
             // Bottom
             ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
@@ -82,12 +85,14 @@ fn powered_by_egui_and_eframe(ui: &mut egui::Ui) {
     ui.horizontal(|ui| {
         ui.spacing_mut().item_spacing.x = 0.0;
         ui.label("Powered by ");
-        ui.hyperlink_to("egui", "https://github.com/emilk/egui");
+        ui.hyperlink_to("egui", "https://github.com/emilk/egui")
+            .on_hover_text("https://github.com/emilk/egui");
         ui.label(" and ");
         ui.hyperlink_to(
             "eframe",
             "https://github.com/emilk/egui/tree/master/crates/eframe",
-        );
+        )
+        .on_hover_text("https://github.com/emilk/egui/tree/master/crates/eframe");
         ui.label(".");
     });
 }
