@@ -30,7 +30,7 @@ jobs:
       - name: Run fetcher
         working-directory: "./Fetchers/CN/"
         run: |
-          python ./fetcher-baidu-hot-search.py
+          python ./fetcher-baidu-hot-search-v2.py
 
       - name: Commit report
         run: |
