@@ -19,7 +19,7 @@ const p = defineProps<{
         v-for="snapshot in p.dayData.snapshots"
         :key="`${p.dayData.date}-${snapshot.minutes}`"
         size="small"
-        :title="snapshot.captureTime"
+        :title="`采集时间 ${snapshot.captureTime}`"
         class="max-h-175"
       >
         <template #header-extra>
@@ -46,7 +46,7 @@ const p = defineProps<{
           <span
             class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap"
           >
-            {{ snapshot.captureTime }}
+            采集时间 {{ snapshot.captureTime }}
           </span>
         </div>
 
