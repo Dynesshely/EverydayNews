@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useAppStore } from '../stores/app'
-import { Sun, Moon } from '@vicons/carbon'
+import { useAppStore } from "../stores/app";
+import { Sun, Moon } from "@vicons/carbon";
 
-const store = useAppStore()
+const store = useAppStore();
 </script>
 
 <template>
@@ -11,17 +11,15 @@ const store = useAppStore()
       <h1 class="text-xl font-bold text-gray-900 dark:text-gray-100">
         EverydayNews
       </h1>
-      <span class="text-sm text-gray-500 dark:text-gray-400">
-        热搜归档
-      </span>
+      <span class="text-lg text-gray-500 dark:text-gray-400"> 每日新闻 </span>
     </div>
     <div class="flex items-center gap-4">
       <span
         v-if="store.meta"
         class="text-xs text-gray-400 dark:text-gray-500 hidden sm:inline"
       >
-        {{ store.meta.dateRange[0] }} ~ {{ store.meta.dateRange[1] }}
-        · {{ store.meta.totalDays }} 天
+        {{ store.meta.dateRange[0] }} ~ {{ store.meta.dateRange[1] }} ·
+        {{ store.meta.totalDays }} 天
       </span>
       <n-button
         quaternary

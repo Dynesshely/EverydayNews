@@ -1,31 +1,27 @@
 <script setup lang="ts">
-import type { BilibiliNewsItem, NewsItem } from '../types'
-import { formatNumber } from '../utils/format'
+import type { BilibiliNewsItem, NewsItem } from "../types";
+import { formatNumber } from "../utils/format";
 
 const props = defineProps<{
-  items: NewsItem[]
-  maxItems?: number
-}>()
+  items: NewsItem[];
+  maxItems?: number;
+}>();
 
 const bilibiliItems = computed(() => {
-  const casted = props.items as BilibiliNewsItem[]
-  const display = props.maxItems ? casted.slice(0, props.maxItems) : casted
-  return display
-})
+  const casted = props.items as BilibiliNewsItem[];
+  return props.maxItems ? casted.slice(0, props.maxItems) : casted;
+});
 
 function proxyImage(url: string): string {
-  if (!url) return ''
+  if (!url) return "";
   if (import.meta.env.DEV) {
-    return url.replace(
-      /^https:\/\/(i\d+)\.hdslb\.com\//,
-      '/proxy/bimg-$1/'
-    )
+    return url.replace(/^https:\/\/(i\d+)\.hdslb\.com\//, "/proxy/bimg-$1/");
   }
-  return url
+  return url;
 }
 
 function openVideo(item: BilibiliNewsItem) {
-  window.open(item.url, '_blank')
+  window.open(item.url, "_blank");
 }
 </script>
 
@@ -41,14 +37,17 @@ function openVideo(item: BilibiliNewsItem) {
         @click="openVideo(item)"
       >
         <template #cover>
-          <img
-            v-if="item.image"
-            :src="proxyImage(item.image)"
-            :alt="item.title"
-            class="h-32 w-full object-cover"
-            loading="lazy"
-            referrerpolicy="no-referrer"
-          />
+          <div class="aspect-video overflow-hidden">
+            <img
+              v-if="item.image"
+              :src="proxyImage(item.image)"
+              :alt="item.title"
+              class="w-full h-full object-cover"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+            />
+            <div v-else class="w-full h-full bg-gray-200 dark:bg-gray-700" />
+          </div>
         </template>
         <template #header>
           <span class="text-xs font-medium line-clamp-2">{{ item.title }}</span>
@@ -66,7 +65,10 @@ function openVideo(item: BilibiliNewsItem) {
         </div>
       </n-card>
     </div>
-    <p v-if="maxItems && items.length > maxItems" class="text-xs text-gray-400 dark:text-gray-500 mt-2 text-center">
+    <p
+      v-if="maxItems && items.length > maxItems"
+      class="text-xs text-gray-400 dark:text-gray-500 mt-2 text-center"
+    >
       仅展示前 {{ maxItems }} 条，共 {{ items.length }} 条
     </p>
   </div>

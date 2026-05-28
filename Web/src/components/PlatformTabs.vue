@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { useAppStore } from '../stores/app'
-import type { Platform } from '../types'
+import { useAppStore } from "../stores/app";
+import type { Platform } from "../types";
 
-const store = useAppStore()
+const store = useAppStore();
 
 const tabs = [
-  { label: '全部', value: 'all' },
-  { label: '百度热搜', value: 'baidu' },
-  { label: '微博热搜', value: 'weibo' },
-  { label: 'B站热门', value: 'bilibili' },
-]
+  { label: "全部", value: "all" },
+  { label: "百度热搜", value: "baidu" },
+  { label: "微博热搜", value: "weibo" },
+  { label: "B站热门", value: "bilibili" },
+];
 
 function onChange(val: string) {
-  store.setPlatform(val as Platform | 'all')
+  store.setPlatform(val as Platform | "all");
 }
 </script>
 
@@ -23,6 +23,11 @@ function onChange(val: string) {
     type="bar"
     size="medium"
   >
-    <n-tab-pane v-for="tab in tabs" :key="tab.value" :name="tab.value" :tab="tab.label" />
+    <n-tab-pane
+      v-for="tab in tabs"
+      :key="tab.value"
+      :name="tab.value"
+      :tab="tab.label"
+    />
   </n-tabs>
 </template>

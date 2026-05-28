@@ -1,41 +1,46 @@
 <script setup lang="ts">
-import { useAppStore } from '../stores/app'
-import type { Platform } from '../types'
-import SnapshotTimeline from './SnapshotTimeline.vue'
-import EmptyState from './EmptyState.vue'
-import LoadingSpinner from './LoadingSpinner.vue'
-import { platformLabel } from '../utils/format'
+import { useAppStore } from "../stores/app";
+import type { Platform } from "../types";
+import SnapshotTimeline from "./SnapshotTimeline.vue";
+import EmptyState from "./EmptyState.vue";
+import LoadingSpinner from "./LoadingSpinner.vue";
+import { platformLabel } from "../utils/format";
 
-const store = useAppStore()
+const store = useAppStore();
 
 const emit = defineEmits<{
-  (e: 'showTrend', title: string): void
-}>()
+  (e: "showTrend", title: string): void;
+}>();
 
 function onShowTrend(title: string) {
-  emit('showTrend', title)
+  emit("showTrend", title);
 }
 
 function jumpToPlatform(platform: string) {
-  store.setPlatform(platform as Platform)
+  store.setPlatform(platform as Platform);
 }
 
-const isAllPlatforms = computed(() => store.currentPlatform === 'all')
+const isAllPlatforms = computed(() => store.currentPlatform === "all");
 
-const cardStyle = (platform: string) => ({
-  baidu: 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/30',
-  weibo: 'text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-950/30',
-  bilibili: 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/30',
-}[platform] || '')
+const cardStyle = (platform: string) =>
+  ({
+    baidu: "text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/30",
+    weibo:
+      "text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-950/30",
+    bilibili: "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/30",
+  })[platform] || "";
 
 function cardLimit(platform: string): number | undefined {
-  if (platform === 'bilibili') return undefined
-  return 5
+  if (platform === "bilibili") return undefined;
+  return 5;
 }
 
 function cardMaxH(platform: string): string {
-  if (platform === 'bilibili') return 'max-h-[55vh]'
-  return 'max-h-[320px]'
+  // if (platform === "bilibili") return "max-h-[55vh]";
+  // return "max-h-[320px]";
+
+  void platform;
+  return "";
 }
 </script>
 
@@ -48,13 +53,19 @@ function cardMaxH(platform: string): string {
       <!-- All platforms view -->
       <div v-if="isAllPlatforms" class="flex flex-col gap-6">
         <!-- Static placeholder cards while data is loading -->
-        <div v-if="store.dataLoading && store.dayDataList.length === 0" class="space-y-6">
+        <div
+          v-if="store.dataLoading && store.dayDataList.length === 0"
+          class="space-y-6"
+        >
           <div
             v-for="plat in ['baidu', 'weibo', 'bilibili']"
             :key="plat"
-            class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden"
+            class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-950 overflow-hidden"
           >
-            <div class="px-4 py-3 font-medium text-sm border-b border-gray-100 dark:border-gray-700" :class="cardStyle(plat)">
+            <div
+              class="px-4 py-3 font-medium text-sm border-b border-gray-100 dark:border-gray-900"
+              :class="cardStyle(plat)"
+            >
               {{ platformLabel(plat) }}
             </div>
             <div class="p-6 flex justify-center">
@@ -67,10 +78,10 @@ function cardMaxH(platform: string): string {
         <div
           v-for="dayData in store.dayDataList"
           :key="dayData.platform"
-          class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 overflow-hidden"
+          class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-950 overflow-hidden"
         >
           <div
-            class="px-4 py-3 font-medium text-sm border-b border-gray-100 dark:border-gray-700 flex items-center justify-between"
+            class="px-4 py-3 font-medium text-sm border-b border-gray-100 dark:border-gray-900 flex items-center justify-between"
             :class="cardStyle(dayData.platform)"
           >
             <span>
@@ -92,7 +103,9 @@ function cardMaxH(platform: string): string {
               :day-data="dayData"
               :limit="cardLimit(dayData.platform)"
               :horizontal="dayData.platform !== 'bilibili'"
-              :max-items-bilibili="dayData.platform === 'bilibili' ? 3 : undefined"
+              :max-items-bilibili="
+                dayData.platform === 'bilibili' ? 3 : undefined
+              "
               @show-trend="onShowTrend"
             />
           </div>
