@@ -5,6 +5,7 @@ import SnapshotTimeline from "./SnapshotTimeline.vue";
 import EmptyState from "./EmptyState.vue";
 import LoadingSpinner from "./LoadingSpinner.vue";
 import { platformLabel } from "../utils/format";
+import { ArrowRight } from "@vicons/carbon";
 
 const store = useAppStore();
 
@@ -22,25 +23,16 @@ function jumpToPlatform(platform: string) {
 
 const isAllPlatforms = computed(() => store.currentPlatform === "all");
 
-const cardStyle = (platform: string) =>
+const dotStyle = (platform: string) =>
   ({
-    baidu: "text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/30",
-    weibo:
-      "text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-950/30",
-    bilibili: "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/30",
-  })[platform] || "";
+    baidu: "bg-red-500",
+    weibo: "bg-orange-500",
+    bilibili: "bg-blue-500",
+  })[platform] || "bg-gray-400";
 
 function cardLimit(platform: string): number | undefined {
   if (platform === "bilibili") return undefined;
   return 5;
-}
-
-function cardMaxH(platform: string): string {
-  // if (platform === "bilibili") return "max-h-[55vh]";
-  // return "max-h-[320px]";
-
-  void platform;
-  return "";
 }
 </script>
 
@@ -60,13 +52,20 @@ function cardMaxH(platform: string): string {
           <div
             v-for="plat in ['baidu', 'weibo', 'bilibili']"
             :key="plat"
-            class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-950 overflow-hidden"
+            class="en-card rounded-2xl overflow-hidden"
           >
             <div
-              class="px-4 py-3 font-medium text-sm border-b border-gray-100 dark:border-gray-900"
-              :class="cardStyle(plat)"
+              class="flex items-center gap-2 px-4 py-3 border-b border-gray-100 dark:border-gray-800"
             >
-              {{ platformLabel(plat) }}
+              <span
+                class="w-2 h-2 rounded-full shrink-0"
+                :class="dotStyle(plat)"
+              ></span>
+              <span
+                class="text-sm font-semibold text-gray-900 dark:text-gray-100"
+              >
+                {{ platformLabel(plat) }}
+              </span>
             </div>
             <div class="p-6 flex justify-center">
               <n-spin size="small" />
@@ -78,27 +77,39 @@ function cardMaxH(platform: string): string {
         <div
           v-for="dayData in store.dayDataList"
           :key="dayData.platform"
-          class="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-950 overflow-hidden"
+          class="en-card rounded-2xl overflow-hidden"
         >
           <div
-            class="px-4 py-3 font-medium text-sm border-b border-gray-100 dark:border-gray-900 flex items-center justify-between"
-            :class="cardStyle(dayData.platform)"
+            class="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-gray-800"
           >
-            <span>
-              {{ platformLabel(dayData.platform) }}
-              <span class="font-normal text-gray-400 dark:text-gray-500 ml-1">
+            <div class="flex items-center gap-2">
+              <span
+                class="w-2 h-2 rounded-full shrink-0"
+                :class="dotStyle(dayData.platform)"
+              ></span>
+              <span
+                class="text-sm font-semibold text-gray-900 dark:text-gray-100"
+              >
+                {{ platformLabel(dayData.platform) }}
+              </span>
+              <span
+                class="text-xs text-gray-400 dark:text-gray-500 tabular-nums"
+              >
                 {{ dayData.snapshots.length }} 个快照
               </span>
-            </span>
+            </div>
             <n-button
               size="tiny"
               quaternary
               @click="jumpToPlatform(dayData.platform)"
             >
-              查看详情 →
+              <span class="inline-flex items-center gap-1">
+                查看详情
+                <n-icon :size="12"><ArrowRight /></n-icon>
+              </span>
             </n-button>
           </div>
-          <div class="p-3 overflow-y-auto" :class="cardMaxH(dayData.platform)">
+          <div class="p-3">
             <SnapshotTimeline
               :day-data="dayData"
               :limit="cardLimit(dayData.platform)"

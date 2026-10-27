@@ -3,6 +3,7 @@ import { useAppStore } from '../stores/app'
 import { loadSearchChunk } from '../api/loader'
 import type { SearchEntry } from '../types'
 import SearchResultItem from './SearchResultItem.vue'
+import { Search } from '@vicons/carbon'
 import Fuse from 'fuse.js'
 
 const store = useAppStore()
@@ -107,48 +108,69 @@ function handleResultClick(entry: SearchEntry) {
 </script>
 
 <template>
-  <div class="space-y-3">
-    <div class="flex items-center gap-2">
-      <n-input
-        v-model:value="searchQuery"
-        placeholder="搜索热搜标题..."
-        clearable
-        round
-        size="medium"
-        class="flex-1 max-w-lg"
-      >
-        <template #prefix>
-          <n-icon><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></n-icon>
-        </template>
-      </n-input>
-      <n-switch
-        v-model:value="searchFuzzy"
-        :rail-style="() => ({})"
-        size="medium"
-      >
-        <template #checked>模糊</template>
-        <template #unchecked>精确</template>
-      </n-switch>
+  <section class="en-card overflow-hidden">
+    <div class="px-5 pt-5 pb-4 sm:px-6 sm:pt-6 sm:pb-5">
+      <h2 class="text-base font-semibold text-gray-900 dark:text-gray-100">
+        热搜档案搜索
+      </h2>
+      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+        跨平台检索历史热搜标题，点击结果可跳转到对应日期与平台。
+      </p>
+
+      <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <n-input
+          v-model:value="searchQuery"
+          placeholder="输入热搜关键词，例如：科技、赛事、人物…"
+          clearable
+          round
+          size="large"
+          class="flex-1"
+        >
+          <template #prefix>
+            <n-icon :size="18"><Search /></n-icon>
+          </template>
+        </n-input>
+        <div class="flex items-center gap-2 shrink-0 self-end sm:self-auto">
+          <span class="text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap">
+            匹配方式
+          </span>
+          <n-switch v-model:value="searchFuzzy" size="medium">
+            <template #checked>模糊匹配</template>
+            <template #unchecked>精确匹配</template>
+          </n-switch>
+        </div>
+      </div>
     </div>
 
-    <n-spin :show="searching" size="small">
-      <div
-        v-if="searchResults.length > 0"
-        class="max-h-96 overflow-y-auto rounded-lg border border-gray-100 dark:border-gray-700 divide-y divide-gray-50 dark:divide-gray-700/50"
-      >
-        <SearchResultItem
-          v-for="(entry, idx) in searchResults"
-          :key="`${entry.date}-${entry.minutes}-${entry.platform}-${idx}`"
-          :entry="entry"
-          @click="handleResultClick"
-        />
-      </div>
-      <div
-        v-else-if="searchQuery.trim().length >= 1 && !searching"
-        class="text-sm text-gray-400 dark:text-gray-500 py-4 text-center"
-      >
-        未找到匹配结果
-      </div>
-    </n-spin>
-  </div>
+    <div
+      v-if="searchResults.length > 0 || (searchQuery.trim().length >= 1 || searching)"
+      class="px-3 pb-3 sm:px-4 sm:pb-4"
+    >
+      <n-spin :show="searching" size="small">
+        <div
+          v-if="searchResults.length > 0"
+          class="max-h-96 overflow-y-auto rounded-xl border border-gray-100 dark:border-white/10
+                 divide-y divide-gray-100 dark:divide-white/5"
+        >
+          <SearchResultItem
+            v-for="(entry, idx) in searchResults"
+            :key="`${entry.date}-${entry.minutes}-${entry.platform}-${idx}`"
+            :entry="entry"
+            @click="handleResultClick"
+          />
+        </div>
+        <div
+          v-else-if="searchQuery.trim().length >= 1 && !searching"
+          class="py-8 text-center rounded-xl border border-dashed border-gray-200 dark:border-white/10"
+        >
+          <p class="text-sm text-gray-400 dark:text-gray-500">
+            未找到与「{{ searchQuery.trim() }}」匹配的热搜记录
+          </p>
+          <p class="mt-1 text-xs text-gray-300 dark:text-gray-600">
+            尝试更换关键词，或切换为模糊匹配
+          </p>
+        </div>
+      </n-spin>
+    </div>
+  </section>
 </template>

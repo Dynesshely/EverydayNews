@@ -2,18 +2,80 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', sans-serif;
+
+  --color-en-bg: #f6f7f9;
+  --color-en-surface: #ffffff;
+  --color-en-surface-2: #f0f1f4;
+  --color-en-border: #e3e5e9;
+  --color-en-text: #1f2329;
+  --color-en-text-secondary: #5b6470;
+  --color-en-text-muted: #8b93a1;
+  --color-en-primary: #2563eb;
+  --color-en-primary-hover: #1d4ed8;
+  --color-en-primary-soft: #e8effd;
+
+  /* 平台品牌色，供内容组件使用 */
+  --color-en-baidu: #e60012;
+  --color-en-weibo: #ff8200;
+  --color-en-bilibili: #00a1d6;
+
+  --shadow-en-card: 0 1px 2px rgb(15 23 42 / 0.05);
+  --shadow-en-pop: 0 4px 16px rgb(15 23 42 / 0.08);
+}
+
+.dark {
+  --color-en-bg: #0c0d10;
+  --color-en-surface: #141519;
+  --color-en-surface-2: #1c1e24;
+  --color-en-border: #26282f;
+  --color-en-text: #e8eaee;
+  --color-en-text-secondary: #a7adb8;
+  --color-en-text-muted: #6b7280;
+  --color-en-primary: #4f8ff7;
+  --color-en-primary-hover: #6ea3f8;
+  --color-en-primary-soft: rgb(79 143 247 / 0.14);
+
+  --shadow-en-card: none;
+  --shadow-en-pop: 0 4px 16px rgb(0 0 0 / 0.4);
+}
+
+body {
+  @apply bg-en-bg text-en-text font-sans antialiased;
+}
+
+/* 可复用表面卡片：内容区块统一使用 */
+.en-card {
+  @apply rounded-xl border border-en-border bg-en-surface shadow-en-card;
+}
+
+/* 头部统计等小型信息芯片 */
+.en-chip {
+  @apply inline-flex items-center gap-1 rounded-full border border-en-border
+    bg-en-surface px-2.5 py-0.5 text-xs text-en-text-secondary;
+}
+
+/* 吸顶毛玻璃头部 */
+.en-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background-color: color-mix(in srgb, var(--color-en-surface) 82%, transparent);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  border-bottom: 1px solid var(--color-en-border);
+}
+
 /* === Custom scrollbar styles === */
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: theme('colors.gray.300') transparent;
+  scrollbar-color: var(--color-en-border) transparent;
 }
 
-.dark * {
-  scrollbar-color: theme('colors.gray.600') transparent;
-}
-
-/* WebKit (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -24,18 +86,10 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: theme('colors.gray.300');
+  background: var(--color-en-border);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: theme('colors.gray.400');
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background: theme('colors.gray.600');
-}
-
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: theme('colors.gray.500');
+  background: var(--color-en-text-muted);
 }

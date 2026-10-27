@@ -29,6 +29,7 @@ const store = useAppStore()
       return !store.availableDates.includes(`${y}${m}${day}`)
     }"
     clearable
-    class="w-40"
+    size="medium"
+    class="w-44"
   />
 </template>

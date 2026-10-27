@@ -22,6 +22,7 @@ function onChange(val: string) {
     @update:value="(v: string) => onChange(v)"
     type="bar"
     size="medium"
+    class="whitespace-nowrap"
   >
     <n-tab-pane
       v-for="tab in tabs"

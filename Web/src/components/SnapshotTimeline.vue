@@ -2,6 +2,7 @@
 import type { DayData } from "../types";
 import SnapshotCard from "./SnapshotCard.vue";
 import BilibiliGrid from "./BilibiliGrid.vue";
+import { Time } from "@vicons/carbon";
 
 const p = defineProps<{
   dayData: DayData;
@@ -9,21 +10,42 @@ const p = defineProps<{
   horizontal?: boolean;
   maxItemsBilibili?: number;
 }>();
+
+const timelineClass = computed(() => {
+  if (!p.horizontal) return "flex flex-col gap-6";
+  if (p.dayData.snapshots.length === 1) return "grid grid-cols-1";
+  if (p.dayData.snapshots.length === 2) {
+    return "grid grid-cols-1 md:grid-cols-2 gap-4";
+  }
+  return "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4";
+});
 </script>
 
 <template>
-  <div :class="p.horizontal ? 'grid grid-cols-3 gap-4' : 'flex flex-col gap-6'">
+  <div :class="timelineClass">
     <!-- Bilibili detail: each snapshot as its own card -->
     <template v-if="p.dayData.platform === 'bilibili' && !p.horizontal">
       <n-card
         v-for="snapshot in p.dayData.snapshots"
         :key="`${p.dayData.date}-${snapshot.minutes}`"
         size="small"
-        :title="`采集时间 ${snapshot.captureTime}`"
-        class="max-h-175"
+        class="max-h-175 rounded-2xl! shadow-sm"
       >
+        <template #header>
+          <div
+            class="flex items-center gap-1.5 text-sm font-medium text-gray-700 dark:text-gray-200"
+          >
+            <n-icon :size="14" class="text-gray-400 dark:text-gray-500">
+              <Time />
+            </n-icon>
+            <span>
+              采集时间
+              <span class="tabular-nums">{{ snapshot.captureTime }}</span>
+            </span>
+          </div>
+        </template>
         <template #header-extra>
-          <span class="text-xs text-gray-400"
+          <span class="text-xs text-gray-400 tabular-nums"
             >{{ snapshot.items.length }} 个视频</span
           >
         </template>
@@ -41,12 +63,20 @@ const p = defineProps<{
       <div
         v-for="snapshot in p.dayData.snapshots"
         :key="`${p.dayData.date}-${snapshot.minutes}`"
+        class="min-w-0"
       >
-        <div class="flex items-center gap-2 mb-2">
+        <div class="flex items-center gap-1.5 mb-2">
+          <span
+            class="w-1.5 h-1.5 rounded-full bg-gray-300 dark:bg-gray-600 shrink-0"
+          ></span>
+          <n-icon :size="12" class="text-gray-400 dark:text-gray-500">
+            <Time />
+          </n-icon>
           <span
             class="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap"
           >
-            采集时间 {{ snapshot.captureTime }}
+            采集时间
+            <span class="tabular-nums">{{ snapshot.captureTime }}</span>
           </span>
         </div>
 

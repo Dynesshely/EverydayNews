@@ -5,8 +5,31 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EverydayNews - 热搜归档</title>
+    <style>
+      html {
+        background-color: #f6f7f9;
+      }
+      html.dark {
+        background-color: #0c0d10;
+      }
+    </style>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('everydaynews-theme')
+          if (t !== 'dark' && t !== 'light') {
+            t =
+              window.matchMedia &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light'
+          }
+          if (t === 'dark') document.documentElement.classList.add('dark')
+        } catch (e) {}
+      })()
+    </script>
   </head>
-  <body class="bg-gray-50 dark:bg-gray-900 transition-colors">
+  <body>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>

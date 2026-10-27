@@ -17,6 +17,11 @@ function getPlatformColor(platform: string) {
   return map[platform] || '#6b7280'
 }
 
+function getPlatformTagColor(platform: string) {
+  const color = getPlatformColor(platform)
+  return { color: color + '1a', textColor: color }
+}
+
 function minutesToTime(m: number): string {
   const h = Math.floor(m / 60)
   const min = m % 60
@@ -25,26 +30,35 @@ function minutesToTime(m: number): string {
 </script>
 
 <template>
-  <div
-    class="flex items-center gap-3 px-4 py-3 rounded-lg bg-white dark:bg-gray-800
-           border border-gray-100 dark:border-gray-700 cursor-pointer
-           hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors"
+  <button
+    type="button"
+    class="w-full flex items-center gap-3 px-4 py-3 text-left cursor-pointer
+           transition-colors hover:bg-gray-50 dark:hover:bg-white/5
+           focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset
+           focus-visible:ring-blue-500/70"
     @click="emit('click', entry)"
   >
     <n-tag
       size="small"
-      :color="{ color: getPlatformColor(entry.platform), textColor: '#fff', borderColor: getPlatformColor(entry.platform) }"
+      round
+      :bordered="false"
+      :color="getPlatformTagColor(entry.platform)"
+      class="shrink-0"
     >
       {{ platformLabel(entry.platform) }}
     </n-tag>
-    <span class="text-sm text-gray-400 dark:text-gray-500 w-8 text-right">
+    <span
+      class="shrink-0 w-8 text-right text-xs tabular-nums text-gray-400 dark:text-gray-500"
+    >
       #{{ entry.rank }}
     </span>
-    <span class="text-sm font-medium text-gray-900 dark:text-gray-100 flex-1 truncate">
+    <span
+      class="min-w-0 flex-1 truncate text-sm font-medium text-gray-900 dark:text-gray-100"
+    >
       {{ entry.title }}
     </span>
-    <span class="text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap">
-      {{ formatDate(entry.date) }} {{ minutesToTime(entry.minutes) }}
+    <span class="shrink-0 text-xs text-gray-400 dark:text-gray-500 whitespace-nowrap">
+      {{ formatDate(entry.date) }}<span class="hidden sm:inline">&nbsp;{{ minutesToTime(entry.minutes) }}</span>
     </span>
-  </div>
+  </button>
 </template>

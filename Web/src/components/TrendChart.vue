@@ -7,11 +7,11 @@ import Fuse from 'fuse.js'
 import VChart from 'vue-echarts'
 import { use } from 'echarts/core'
 import { LineChart } from 'echarts/charts'
-import { GridComponent, TooltipComponent, DataZoomComponent, TitleComponent } from 'echarts/components'
+import { GridComponent, TooltipComponent, DataZoomComponent, TitleComponent, LegendComponent } from 'echarts/components'
 import { CanvasRenderer } from 'echarts/renderers'
 import type { EChartsOption } from 'echarts'
 
-use([LineChart, GridComponent, TooltipComponent, DataZoomComponent, TitleComponent, CanvasRenderer])
+use([LineChart, GridComponent, TooltipComponent, DataZoomComponent, TitleComponent, LegendComponent, CanvasRenderer])
 
 const store = useAppStore()
 const trendTitle = ref('')
@@ -81,6 +81,8 @@ async function showTrend(title: string) {
   trendLoading.value = false
 }
 
+const isDark = computed(() => store.themeMode === 'dark')
+
 const chartOption = computed<EChartsOption>(() => {
   const byPlatform = new Map<string, TrendPoint[]>()
   for (const item of trendData.value) {
@@ -96,6 +98,10 @@ const chartOption = computed<EChartsOption>(() => {
 
   const series: EChartsOption['series'] = []
   const allDates = [...new Set(trendData.value.map(d => d.date))].sort()
+
+  const textColor = isDark.value ? '#e5e7eb' : '#374151'
+  const subTextColor = isDark.value ? '#9ca3af' : '#6b7280'
+  const lineColor = isDark.value ? 'rgba(255, 255, 255, 0.08)' : 'rgba(15, 23, 42, 0.08)'
 
   for (const [platform, items] of byPlatform) {
     series.push({
@@ -114,10 +120,13 @@ const chartOption = computed<EChartsOption>(() => {
     title: {
       text: `"${trendTitle.value}" 排名趋势`,
       left: 'center',
-      textStyle: { fontSize: 14 },
+      textStyle: { fontSize: 14, fontWeight: 600, color: textColor },
     },
     tooltip: {
       trigger: 'axis',
+      backgroundColor: isDark.value ? '#1e2025' : '#ffffff',
+      borderColor: isDark.value ? 'rgba(255, 255, 255, 0.12)' : 'rgba(15, 23, 42, 0.1)',
+      textStyle: { color: textColor, fontSize: 12 },
       formatter: (params: unknown) => {
         const items = params as { seriesName: string; value: [string, number] }[]
         if (!items?.length) return ''
@@ -131,7 +140,11 @@ const chartOption = computed<EChartsOption>(() => {
         </div>`
       },
     },
-    legend: { top: 30, data: [...byPlatform.keys()].map(platformLabel) },
+    legend: {
+      top: 30,
+      data: [...byPlatform.keys()].map(platformLabel),
+      textStyle: { color: subTextColor, fontSize: 11 },
+    },
     grid: { left: 50, right: 30, top: 70, bottom: 60 },
     xAxis: {
       type: 'category',
@@ -140,17 +153,32 @@ const chartOption = computed<EChartsOption>(() => {
         formatter: (val: string) => val.slice(4, 6) + '/' + val.slice(6, 8),
         rotate: 45,
         fontSize: 10,
+        color: subTextColor,
       },
+      axisLine: { lineStyle: { color: lineColor } },
+      axisTick: { show: false },
     },
     yAxis: {
       type: 'value',
       inverse: true,
       name: '排名',
       minInterval: 1,
-      axisLabel: { fontSize: 10 },
+      nameTextStyle: { color: subTextColor, fontSize: 11 },
+      axisLabel: { fontSize: 10, color: subTextColor },
+      splitLine: { lineStyle: { color: lineColor } },
     },
     dataZoom: [
-      { type: 'slider', bottom: 10, height: 20 },
+      {
+        type: 'slider',
+        bottom: 10,
+        height: 20,
+        borderColor: 'transparent',
+        backgroundColor: isDark.value ? 'rgba(255, 255, 255, 0.04)' : 'rgba(15, 23, 42, 0.03)',
+        fillerColor: isDark.value ? 'rgba(59, 130, 246, 0.25)' : 'rgba(59, 130, 246, 0.15)',
+        handleStyle: { color: '#3b82f6' },
+        moveHandleStyle: { color: '#3b82f6' },
+        textStyle: { color: subTextColor, fontSize: 10 },
+      },
       { type: 'inside' },
     ],
     series,
@@ -167,26 +195,41 @@ const emit = defineEmits<{
 
 <template>
   <div v-if="trendTitle" class="mt-8">
-    <n-card size="small">
+    <n-card size="small" class="trend-card shadow-sm">
       <template #header>
-        <div class="flex items-center justify-between">
-          <span class="text-sm font-medium text-gray-700 dark:text-gray-300">
-            趋势分析
-          </span>
-          <n-button size="tiny" quaternary @click="trendTitle = ''">关闭</n-button>
+        <div class="flex items-center justify-between gap-3">
+          <div class="min-w-0">
+            <span class="text-sm font-semibold text-gray-900 dark:text-gray-100">
+              趋势分析
+            </span>
+            <span class="ml-2 text-xs text-gray-400 dark:text-gray-500 truncate">
+              「{{ trendTitle }}」在各平台的排名变化
+            </span>
+          </div>
+          <n-button size="tiny" quaternary class="shrink-0" @click="trendTitle = ''">
+            关闭
+          </n-button>
         </div>
       </template>
       <n-spin :show="trendLoading">
         <v-chart
           v-if="trendData.length > 0"
           :option="chartOption"
-          class="h-80 w-full"
+          class="h-72 sm:h-80 lg:h-96 w-full"
           autoresize
         />
-        <div v-else class="text-sm text-gray-400 dark:text-gray-500 py-8 text-center">
-          暂无该话题的历史趋势数据
+        <div v-else class="py-12 text-center">
+          <p class="text-sm text-gray-400 dark:text-gray-500">
+            暂无该话题的历史趋势数据
+          </p>
         </div>
       </n-spin>
     </n-card>
   </div>
 </template>
+
+<style scoped>
+.trend-card {
+  --n-border-radius: 16px;
+}
+</style>

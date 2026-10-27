@@ -6,21 +6,37 @@ const store = useAppStore();
 </script>
 
 <template>
-  <div class="flex items-center justify-between">
-    <div class="flex items-center gap-3">
-      <h1 class="text-xl font-bold text-gray-900 dark:text-gray-100">
-        EverydayNews
-      </h1>
-      <span class="text-lg text-gray-500 dark:text-gray-400"> 每日新闻 </span>
-    </div>
-    <div class="flex items-center gap-4">
-      <span
-        v-if="store.meta"
-        class="text-xs text-gray-400 dark:text-gray-500 hidden sm:inline"
+  <div class="flex items-center justify-between gap-4 w-full">
+    <div class="flex items-center gap-2.5 min-w-0">
+      <div
+        class="size-8 rounded-lg bg-en-primary flex items-center justify-center shrink-0"
       >
-        {{ store.meta.dateRange[0] }} ~ {{ store.meta.dateRange[1] }} ·
-        {{ store.meta.totalDays }} 天
-      </span>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+        >
+          <rect x="2" y="9" width="3" height="5" rx="1" fill="#fff" opacity="0.85" />
+          <rect x="6.5" y="5" width="3" height="9" rx="1" fill="#fff" />
+          <rect x="11" y="2" width="3" height="12" rx="1" fill="#fff" opacity="0.7" />
+        </svg>
+      </div>
+      <div class="min-w-0 leading-tight">
+        <h1 class="text-base font-semibold text-en-text truncate">
+          EverydayNews
+        </h1>
+        <p class="text-xs text-en-text-muted">每日新闻</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3 shrink-0">
+      <div v-if="store.meta" class="hidden md:flex items-center gap-2">
+        <span class="en-chip">
+          {{ store.meta.dateRange[0] }} ~ {{ store.meta.dateRange[1] }}
+        </span>
+        <span class="en-chip">{{ store.meta.totalDays }} 天</span>
+      </div>
       <n-button
         quaternary
         circle
