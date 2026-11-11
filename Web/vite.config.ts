@@ -10,6 +10,11 @@ export default defineConfig({
   server: {
     port: 52611,
     strictPort: true,
+    // 编辑器 / 格式化器做原子写入时会在同目录产生 .*.tmpdir、.*.tmp 等临时文件，
+    // chokidar 监听这些文件会报 EBUSY 并把整个 dev server 打挂，这里统一忽略。
+    watch: {
+      ignored: ['**/.*.tmpdir/**', '**/.*.tmp', '**/.git/**'],
+    },
     proxy: {
       '/proxy/bimg-i0': {
         target: 'https://i0.hdslb.com',
