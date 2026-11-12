@@ -5,6 +5,7 @@
 </picture>
 
 <p align="center">
+  <br/>
   <a href="https://github.com/Dynesshely/EverydayNews/actions/workflows/build-web.yml"><img src="https://github.com/Dynesshely/EverydayNews/actions/workflows/build-web.yml/badge.svg?branch=main" alt="build-web"></a>
   <a href="https://dynesshely.github.io/EverydayNews/"><img src="https://img.shields.io/badge/%E5%9C%A8%E7%BA%BF%E6%B5%8F%E8%A7%88-GitHub%20Pages-2563eb?logo=github" alt="在线浏览"></a>
   <a href="https://github.com/Dynesshely/EverydayNews/stargazers"><img src="https://img.shields.io/github/stars/Dynesshely/EverydayNews?logo=github&color=e0b341" alt="stars"></a>
