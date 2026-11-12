@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="360" viewBox="0 0 1280 360" role="img" aria-label="EverydayNews — 每日热搜档案">
+  <title>EverydayNews — 每日热搜档案</title>
+  <desc>百度、微博、Bilibili 热搜的自动采集、归档与可视化</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b0c10"/>
+      <stop offset="1" stop-color="#141820"/>
+    </linearGradient>
+    <linearGradient id="titleGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#9db4dd"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#4f8ff7" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#4f8ff7" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#00a1d6" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#00a1d6" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <g fill="#ffffff" fill-opacity="0.035"><circle cx="24" cy="0" r="1"/><circle cx="52" cy="0" r="1"/><circle cx="80" cy="0" r="1"/><circle cx="108" cy="0" r="1"/><circle cx="136" cy="0" r="1"/><circle cx="164" cy="0" r="1"/><circle cx="192" cy="0" r="1"/><circle cx="220" cy="0" r="1"/><circle cx="248" cy="0" r="1"/><circle cx="276" cy="0" r="1"/><circle cx="304" cy="0" r="1"/><circle cx="332" cy="0" r="1"/><circle cx="360" cy="0" r="1"/><circle cx="388" cy="0" r="1"/><circle cx="416" cy="0" r="1"/><circle cx="444" cy="0" r="1"/><circle cx="472" cy="0" r="1"/><circle cx="500" cy="0" r="1"/><circle cx="528" cy="0" r="1"/><circle cx="556" cy="0" r="1"/><circle cx="584" cy="0" r="1"/><circle cx="612" cy="0" r="1"/><circle cx="640" cy="0" r="1"/><circle cx="668" cy="0" r="1"/><circle cx="696" cy="0" r="1"/><circle cx="724" cy="0" r="1"/><circle cx="752" cy="0" r="1"/><circle cx="780" cy="0" r="1"/><circle cx="808" cy="0" r="1"/><circle cx="836" cy="0" r="1"/><circle cx="864" cy="0" r="1"/><circle cx="892" cy="0" r="1"/><circle cx="920" cy="0" r="1"/><circle cx="948" cy="0" r="1"/><circle cx="976" cy="0" r="1"/><circle cx="1004" cy="0" r="1"/><circle cx="1032" cy="0" r="1"/><circle cx="1060" cy="0" r="1"/><circle cx="1088" cy="0" r="1"/><circle cx="1116" cy="0" r="1"/><circle cx="1144" cy="0" r="1"/><circle cx="1172" cy="0" r="1"/><circle cx="1200" cy="0" r="1"/><circle cx="1228" cy="0" r="1"/><circle cx="1256" cy="0" r="1"/></g>
+    </pattern>
+    <clipPath id="round"><rect x="0" y="0" width="1280" height="360" rx="0"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#round)">
+    <rect width="1280" height="360" fill="url(#bg)"/>
+    <rect width="1280" height="360" fill="url(#grid)"/>
+    <ellipse cx="240" cy="60" rx="420" ry="240" fill="url(#glowA)"/>
+    <ellipse cx="1080" cy="300" rx="380" ry="220" fill="url(#glowB)"/>
+
+    <!-- 左侧文案 -->
+    <g font-family="'Segoe UI', 'PingFang SC', 'Microsoft YaHei', ui-sans-serif, system-ui, sans-serif">
+      <rect x="72" y="66" width="132" height="26" rx="13" fill="#1c1f27" stroke="#2a2e38"/>
+      <text x="138" y="84" font-size="13" fill="#a7adb8" text-anchor="middle" letter-spacing="1">每日热搜档案</text>
+
+      <text x="70" y="164" font-size="60" font-weight="700" fill="url(#titleGrad)" letter-spacing="0.5">EverydayNews</text>
+      <text x="72" y="200" font-size="19" fill="#a7adb8">百度 · 微博 · Bilibili 热搜的自动采集、归档与可视化</text>
+
+      <g font-size="15">
+        <circle cx="78" cy="232" r="4" fill="#e60012"/>
+        <text x="92" y="237" fill="#a7adb8">百度热搜</text>
+        <circle cx="196" cy="232" r="4" fill="#ff8200"/>
+        <text x="210" y="237" fill="#a7adb8">微博热搜</text>
+        <circle cx="314" cy="232" r="4" fill="#00a1d6"/>
+        <text x="328" y="237" fill="#a7adb8">B站热门</text>
+      </g>
+
+      <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13" fill="#6b7280">
+        <text x="72" y="292">1124 天</text>
+        <text x="150" y="292" fill="#6b7280">·</text>
+        <text x="168" y="292">853,994 条</text>
+        <text x="286" y="292" fill="#6b7280">·</text>
+        <text x="304" y="292">每天 3 次快照</text>
+      </g>
+      <text x="72" y="322" font-size="12" fill="#6b7280" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">dynesshely.github.io/EverydayNews</text>
+    </g>
+
+    <!-- 右侧：热搜快照卡片示意 -->
+    <g font-family="'Segoe UI', 'PingFang SC', 'Microsoft YaHei', ui-sans-serif, system-ui, sans-serif">
+      <rect x="742" y="58" width="466" height="244" rx="18" fill="#15171d" stroke="#2a2e38"/>
+      <rect x="742" y="58" width="466" height="46" rx="18" fill="#1c1f27"/>
+      <rect x="742" y="86" width="466" height="18" fill="#1c1f27"/>
+      <circle cx="770" cy="81" r="5" fill="#e60012"/>
+      <circle cx="788" cy="81" r="5" fill="#ff8200"/>
+      <circle cx="806" cy="81" r="5" fill="#00a1d6"/>
+      <text x="828" y="86" font-size="13" fill="#a7adb8">实时热搜快照</text>
+      <text x="1180" y="86" font-size="12" fill="#6b7280" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">02:57</text>
+
+      
+      <g>
+        <rect x="766" y="122" width="22" height="20" rx="6" fill="#1c1f27" stroke="#2a2e38"/>
+        <text x="777" y="136" font-size="11" fill="#6b7280" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">1</text>
+        <rect x="798" y="126" width="208" height="12" rx="6" fill="#2a2f3a"/>
+        <rect x="798" y="126" width="129" height="12" rx="6" fill="#4f8ff7" fill-opacity="0.55"/>
+        <text x="1180" y="137" font-size="11" fill="#6b7280" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">1,320,447</text>
+      </g>
+      <g>
+        <rect x="766" y="160" width="22" height="20" rx="6" fill="#1c1f27" stroke="#2a2e38"/>
+        <text x="777" y="174" font-size="11" fill="#6b7280" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">2</text>
+        <rect x="798" y="164" width="246" height="12" rx="6" fill="#2a2f3a"/>
+        <rect x="798" y="164" width="153" height="12" rx="6" fill="#4f8ff7" fill-opacity="0.55"/>
+        <text x="1180" y="175" font-size="11" fill="#6b7280" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">986,120</text>
+      </g>
+      <g>
+        <rect x="766" y="198" width="22" height="20" rx="6" fill="#1c1f27" stroke="#2a2e38"/>
+        <text x="777" y="212" font-size="11" fill="#6b7280" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">3</text>
+        <rect x="798" y="202" width="174" height="12" rx="6" fill="#2a2f3a"/>
+        <rect x="798" y="202" width="108" height="12" rx="6" fill="#4f8ff7" fill-opacity="0.55"/>
+        <text x="1180" y="213" font-size="11" fill="#6b7280" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">742,058</text>
+      </g>
+      <g>
+        <rect x="766" y="236" width="22" height="20" rx="6" fill="#1c1f27" stroke="#2a2e38"/>
+        <text x="777" y="250" font-size="11" fill="#6b7280" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">4</text>
+        <rect x="798" y="240" width="226" height="12" rx="6" fill="#2a2f3a"/>
+        <rect x="798" y="240" width="140" height="12" rx="6" fill="#4f8ff7" fill-opacity="0.55"/>
+        <text x="1180" y="251" font-size="11" fill="#6b7280" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">515,932</text>
+      </g>
+
+      <text x="766" y="286" font-size="12" fill="#6b7280">仅展示前 5 条，共 51 条</text>
+      <rect x="742" y="58" width="466" height="244" rx="18" fill="none" stroke="#2a2e38"/>
+    </g>
+
+    <text x="1208" y="322" font-size="12" fill="#6b7280" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">2023.10 — 2026.11</text>
+  </g>
+</svg>
