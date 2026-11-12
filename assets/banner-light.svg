@@ -21,7 +21,7 @@
     <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
       <g fill="#0f172a" fill-opacity="0.05"><circle cx="24" cy="0" r="1"/><circle cx="52" cy="0" r="1"/><circle cx="80" cy="0" r="1"/><circle cx="108" cy="0" r="1"/><circle cx="136" cy="0" r="1"/><circle cx="164" cy="0" r="1"/><circle cx="192" cy="0" r="1"/><circle cx="220" cy="0" r="1"/><circle cx="248" cy="0" r="1"/><circle cx="276" cy="0" r="1"/><circle cx="304" cy="0" r="1"/><circle cx="332" cy="0" r="1"/><circle cx="360" cy="0" r="1"/><circle cx="388" cy="0" r="1"/><circle cx="416" cy="0" r="1"/><circle cx="444" cy="0" r="1"/><circle cx="472" cy="0" r="1"/><circle cx="500" cy="0" r="1"/><circle cx="528" cy="0" r="1"/><circle cx="556" cy="0" r="1"/><circle cx="584" cy="0" r="1"/><circle cx="612" cy="0" r="1"/><circle cx="640" cy="0" r="1"/><circle cx="668" cy="0" r="1"/><circle cx="696" cy="0" r="1"/><circle cx="724" cy="0" r="1"/><circle cx="752" cy="0" r="1"/><circle cx="780" cy="0" r="1"/><circle cx="808" cy="0" r="1"/><circle cx="836" cy="0" r="1"/><circle cx="864" cy="0" r="1"/><circle cx="892" cy="0" r="1"/><circle cx="920" cy="0" r="1"/><circle cx="948" cy="0" r="1"/><circle cx="976" cy="0" r="1"/><circle cx="1004" cy="0" r="1"/><circle cx="1032" cy="0" r="1"/><circle cx="1060" cy="0" r="1"/><circle cx="1088" cy="0" r="1"/><circle cx="1116" cy="0" r="1"/><circle cx="1144" cy="0" r="1"/><circle cx="1172" cy="0" r="1"/><circle cx="1200" cy="0" r="1"/><circle cx="1228" cy="0" r="1"/><circle cx="1256" cy="0" r="1"/></g>
     </pattern>
-    <clipPath id="round"><rect x="0" y="0" width="1280" height="360" rx="0"/></clipPath>
+    <clipPath id="round"><rect x="0" y="0" width="1280" height="360" rx="28"/></clipPath>
   </defs>
 
   <g clip-path="url(#round)">
@@ -103,5 +103,8 @@
     </g>
 
     <text x="1208" y="322" font-size="12" fill="#8b93a1" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">2023.10 — 2026.11</text>
+
+    <!-- 圆角描边：让海报在浅色/深色背景上都有清晰边界 -->
+    <rect x="0.5" y="0.5" width="1279" height="359" rx="27.5" fill="none" stroke="#d8dce4"/>
   </g>
 </svg>
